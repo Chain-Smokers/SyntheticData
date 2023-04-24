@@ -34,7 +34,7 @@ class ElectoralContract:
         nodeIndex = random.randint(0, len(ElectoralContract.contracts)-1)
         tx_hash = ElectoralContract.contracts[nodeIndex].functions.addCandidate(
             candidateName).transact()
-        ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
+        return ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
             tx_hash)
 
     @staticmethod
@@ -42,7 +42,7 @@ class ElectoralContract:
         nodeIndex = random.randint(0, len(ElectoralContract.contracts)-1)
         tx_hash = ElectoralContract.contracts[nodeIndex].functions.addVoter(
             voterName, voterPassword).transact()
-        ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
+        return ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
             tx_hash)
 
     @staticmethod
@@ -50,7 +50,7 @@ class ElectoralContract:
         nodeIndex = random.randint(0, len(ElectoralContract.contracts)-1)
         tx_hash = ElectoralContract.contracts[nodeIndex].functions.login(
             voterId, password).transact()
-        ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
+        return ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
             tx_hash)
 
     @staticmethod
@@ -58,7 +58,7 @@ class ElectoralContract:
         nodeIndex = random.randint(0, len(ElectoralContract.contracts)-1)
         tx_hash = ElectoralContract.contracts[nodeIndex].functions.logout(
             voterId).transact()
-        ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
+        return ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
             tx_hash)
 
     @staticmethod
@@ -76,5 +76,5 @@ class ElectoralContract:
         nodeIndex = random.randint(0, len(ElectoralContract.contracts)-1)
         tx_hash = ElectoralContract.contracts[nodeIndex].functions.vote(
             voterId, candidateId, timestamp).transact()
-        ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
+        return ElectoralContract.web3[nodeIndex].eth.wait_for_transaction_receipt(
             tx_hash)
