@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from dotenv import load_dotenv
 from CommonUtils import CommonUtils
@@ -12,6 +13,10 @@ load_dotenv()
 
 
 if __name__ == "__main__":
+    directory = f"N{int(os.environ['PORT_END']) - int(os.environ['PORT_BEGIN'])}V{os.environ['NUMBER_OF_VOTERS']}"
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+    pass
     # Initialize contract in program
     ElectoralContract.initContract()
 
@@ -23,18 +28,21 @@ if __name__ == "__main__":
     Web3Utils.castAllVotes()
     Web3Utils.logoutAllVoters()
     CommonUtils.stopTimer()
-    print(f"Execution time : {CommonUtils.getExecutionTime()}")
+    CommonUtils.consoleLog(
+        f"Execution time : {CommonUtils.getExecutionTime()}",
+        f"{directory}/{os.environ['CONSOLEFILE']}",
+    )
 
     # Get results and create DataFrame
     result = ElectoralContract.getResult()
     votersDetailed = ElectoralContract.getVotersDetailed()
     nodeAddresses = ElectoralContract.getNodeAddresses()
     df = DSUtils.createDatasetForVoterData(votersDetailed, nodeAddresses)
-    df.to_csv("data.csv")
+    df.to_csv(f"{directory}/data.csv")
 
     # Plot graphs from results
-    DSUtils.nodewiseVotingGraph(df).savefig("nodewiseVotingGraph.png")
-    DSUtils.percentageVotingGraph(df).savefig("percentageVotingGraph.png")
-    DSUtils.timewiseVotingGraph(df).savefig("timewiseVotingGraph.png")
+    DSUtils.nodewiseVotingGraph(df).savefig(f"{directory}/nodewiseVotingGraph.png")
+    DSUtils.percentageVotingGraph(df).savefig(f"{directory}/percentageVotingGraph.png")
+    DSUtils.timewiseVotingGraph(df).savefig(f"{directory}/timewiseVotingGraph.png")
 
-    CommonUtils.dumpLogs(os.environ["LOGFILE"])
+    CommonUtils.dumpLogs(f"{directory}/{os.environ['LOGFILE']}")

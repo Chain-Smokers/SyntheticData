@@ -13,7 +13,10 @@ class Web3Utils:
     def addCandidate():
         if len(ElectoralContract.getResult()) == 0:
             txReceipt = ElectoralContract.addCandidate(os.environ["CANDIDATE_NAME"])
-            print(f"Candidate added : {os.environ['CANDIDATE_NAME']}")
+            CommonUtils.consoleLog(
+                f"Candidate added : {os.environ['CANDIDATE_NAME']}",
+                f"N{int(os.environ['PORT_END']) - int(os.environ['PORT_BEGIN'])}V{os.environ['NUMBER_OF_VOTERS']}/{os.environ['CONSOLEFILE']}",
+            )
             CommonUtils.addLog(
                 {
                     "operation": "Web3Utils.addCandidate",
@@ -28,7 +31,10 @@ class Web3Utils:
             txReceipt = ElectoralContract.addVoter(
                 CommonUtils.getRandomName(), os.environ["PASSWORD"]
             )
-            print(f"Voter added : {voterIndex}")
+            CommonUtils.consoleLog(
+                f"Voter added : {voterIndex}",
+                f"N{int(os.environ['PORT_END']) - int(os.environ['PORT_BEGIN'])}V{os.environ['NUMBER_OF_VOTERS']}/{os.environ['CONSOLEFILE']}",
+            )
             CommonUtils.addLog(
                 {
                     "operation": "Web3Utils.addVoters",
@@ -43,10 +49,13 @@ class Web3Utils:
         for voterIndex in range(len(voters)):
             if (
                 not voters[voterIndex][1]  # Check if previously voted
-                and not voters[voterIndex][2]  # Check if looged in
+                and not voters[voterIndex][2]  # Check if logged in
             ):
                 txReceipt = ElectoralContract.login(voterIndex, voters[voterIndex][3])
-                print(f"Voter logged in : {voterIndex}")
+                CommonUtils.consoleLog(
+                    f"Voter logged in : {voterIndex}",
+                    f"N{int(os.environ['PORT_END']) - int(os.environ['PORT_BEGIN'])}V{os.environ['NUMBER_OF_VOTERS']}/{os.environ['CONSOLEFILE']}",
+                )
                 CommonUtils.addLog(
                     {
                         "operation": "Web3Utils.loginAllVoters",
@@ -67,11 +76,14 @@ class Web3Utils:
         for voterIndex in range(len(voters)):
             if (
                 not voters[voterIndex][1]  # Check if previously voted
-                and voters[voterIndex][2]  # Check if looged in
+                and voters[voterIndex][2]  # Check if logged in
                 and (random.random() < float(os.environ["VOTE_CAST_PROBABILITY"]))
             ):
                 txReceipt = ElectoralContract.vote(voterIndex, 0, voteTimestamp)
-                print(f"Vote cast : {voterIndex}")
+                CommonUtils.consoleLog(
+                    f"Vote cast : {voterIndex}",
+                    f"N{int(os.environ['PORT_END']) - int(os.environ['PORT_BEGIN'])}V{os.environ['NUMBER_OF_VOTERS']}/{os.environ['CONSOLEFILE']}",
+                )
                 CommonUtils.addLog(
                     {
                         "operation": "Web3Utils.castAllVotes.vote",
@@ -86,7 +98,10 @@ class Web3Utils:
         for voterIndex in range(len(voters)):
             if voters[voterIndex][2]:  # Check if logged in
                 txReceipt = ElectoralContract.logout(voterIndex)
-                print(f"Voter logged out : {voterIndex}")
+                CommonUtils.consoleLog(
+                    f"Voter logged out : {voterIndex}",
+                    f"N{int(os.environ['PORT_END']) - int(os.environ['PORT_BEGIN'])}V{os.environ['NUMBER_OF_VOTERS']}/{os.environ['CONSOLEFILE']}",
+                )
                 CommonUtils.addLog(
                     {
                         "operation": "Web3Utils.logoutAllVoters",
