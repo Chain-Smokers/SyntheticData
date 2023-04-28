@@ -41,7 +41,10 @@ class Web3Utils:
     def loginAllVoters():
         voters = ElectoralContract.getVotersDetailed()
         for voterIndex in range(len(voters)):
-            if not voters[voterIndex][2]:
+            if (
+                not voters[voterIndex][1]  # Check if previously voted
+                and not voters[voterIndex][2]  # Check if looged in
+            ):
                 txReceipt = ElectoralContract.login(voterIndex, voters[voterIndex][3])
                 print(f"Voter logged in : {voterIndex}")
                 CommonUtils.addLog(
@@ -62,8 +65,10 @@ class Web3Utils:
             * SECONDS_IN_MINUTE,
         )
         for voterIndex in range(len(voters)):
-            if not voters[voterIndex][1] and (
-                random.random() < float(os.environ["VOTE_CAST_PROBABILITY"])
+            if (
+                not voters[voterIndex][1]  # Check if previously voted
+                and voters[voterIndex][2]  # Check if looged in
+                and (random.random() < float(os.environ["VOTE_CAST_PROBABILITY"]))
             ):
                 txReceipt = ElectoralContract.vote(voterIndex, 0, voteTimestamp)
                 print(f"Vote cast : {voterIndex}")
@@ -79,7 +84,7 @@ class Web3Utils:
     def logoutAllVoters():
         voters = ElectoralContract.getVotersDetailed()
         for voterIndex in range(len(voters)):
-            if voters[voterIndex][2]:
+            if voters[voterIndex][2]:  # Check if logged in
                 txReceipt = ElectoralContract.logout(voterIndex)
                 print(f"Voter logged out : {voterIndex}")
                 CommonUtils.addLog(
