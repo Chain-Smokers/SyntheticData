@@ -11,52 +11,81 @@ SECONDS_IN_MINUTE = 60
 class Web3Utils:
     @staticmethod
     def addCandidate():
-        if (len(ElectoralContract.getResult()) == 0):
-            txReceipt = ElectoralContract.addCandidate(
-                os.environ["CANDIDATE_NAME"])
-            CommonUtils.addLog({
-                "operation": "Web3Utils.addCandidate",
-                "candidateName": os.environ["CANDIDATE_NAME"],
-                "txReceipt": txReceipt.__dict__
-            })
+        if len(ElectoralContract.getResult()) == 0:
+            txReceipt = ElectoralContract.addCandidate(os.environ["CANDIDATE_NAME"])
+            print(f"Candidate added : {os.environ['CANDIDATE_NAME']}")
+            CommonUtils.addLog(
+                {
+                    "operation": "Web3Utils.addCandidate",
+                    "candidateName": os.environ["CANDIDATE_NAME"],
+                    "txReceipt": txReceipt.__dict__,
+                }
+            )
 
     @staticmethod
     def addVoters(numberOfVoters):
         for voterIndex in range(numberOfVoters):
             txReceipt = ElectoralContract.addVoter(
-                CommonUtils.getRandomName(), os.environ["PASSWORD"])
-            CommonUtils.addLog({
-                "operation": "Web3Utils.addVoters",
-                "voterIndex": voterIndex,
-                "txReceipt": txReceipt.__dict__
-            })
+                CommonUtils.getRandomName(), os.environ["PASSWORD"]
+            )
+            print(f"Voter added : {voterIndex}")
+            CommonUtils.addLog(
+                {
+                    "operation": "Web3Utils.addVoters",
+                    "voterIndex": voterIndex,
+                    "txReceipt": txReceipt.__dict__,
+                }
+            )
+
+    @staticmethod
+    def loginAllVoters():
+        voters = ElectoralContract.getVotersDetailed()
+        for voterIndex in range(len(voters)):
+            if not voters[voterIndex][2]:
+                txReceipt = ElectoralContract.login(voterIndex, voters[voterIndex][3])
+                print(f"Voter logged in : {voterIndex}")
+                CommonUtils.addLog(
+                    {
+                        "operation": "Web3Utils.loginAllVoters",
+                        "voterIndex": voterIndex,
+                        "txReceipt": txReceipt.__dict__,
+                    }
+                )
 
     @staticmethod
     def castAllVotes():
         voters = ElectoralContract.getVotersDetailed()
+        voteTimestamp = int(os.environ["VOTING_START_TIME"]) + random.randint(
+            0,
+            int(os.environ["VOTING_WINDOW_IN_HOURS"])
+            * MINUTES_IN_HOUR
+            * SECONDS_IN_MINUTE,
+        )
         for voterIndex in range(len(voters)):
-            try:
-                if (voters[voterIndex][2]):
-                    txReceipt = ElectoralContract.logout(voterIndex)
-                    CommonUtils.addLog({
-                        "operation": "Web3Utils.castAllVotes.logout",
-                        "voterIndex": voterIndex,
-                        "txReceipt": txReceipt.__dict__
-                    })
-                if (not voters[voterIndex][1] and (random.random() < float(os.environ["VOTE_CAST_PROBABILITY"]))):
-                    txReceipt = ElectoralContract.login(
-                        voterIndex, voters[voterIndex][3])
-                    CommonUtils.addLog({
-                        "operation": "Web3Utils.castAllVotes.login",
-                        "voterIndex": voterIndex,
-                        "txReceipt": txReceipt.__dict__
-                    })
-                    txReceipt = ElectoralContract.vote(
-                        voterIndex, 0, int(os.environ["VOTING_START_TIME"]) + random.randint(0, int(os.environ["VOTING_WINDOW_IN_HOURS"]) * MINUTES_IN_HOUR * SECONDS_IN_MINUTE))
-                    CommonUtils.addLog({
+            if not voters[voterIndex][1] and (
+                random.random() < float(os.environ["VOTE_CAST_PROBABILITY"])
+            ):
+                txReceipt = ElectoralContract.vote(voterIndex, 0, voteTimestamp)
+                print(f"Vote cast : {voterIndex}")
+                CommonUtils.addLog(
+                    {
                         "operation": "Web3Utils.castAllVotes.vote",
                         "voterIndex": voterIndex,
-                        "txReceipt": txReceipt.__dict__
-                    })
-            except:
-                print(f"Log : Error in voterId {voterIndex}")
+                        "txReceipt": txReceipt.__dict__,
+                    }
+                )
+
+    @staticmethod
+    def logoutAllVoters():
+        voters = ElectoralContract.getVotersDetailed()
+        for voterIndex in range(len(voters)):
+            if voters[voterIndex][2]:
+                txReceipt = ElectoralContract.logout(voterIndex)
+                print(f"Voter logged out : {voterIndex}")
+                CommonUtils.addLog(
+                    {
+                        "operation": "Web3Utils.logoutAllVoters",
+                        "voterIndex": voterIndex,
+                        "txReceipt": txReceipt.__dict__,
+                    }
+                )

@@ -19,7 +19,9 @@ if __name__ == "__main__":
     CommonUtils.startTimer()
     Web3Utils.addCandidate()
     Web3Utils.addVoters(int(os.environ["NUMBER_OF_VOTERS"]))
+    Web3Utils.loginAllVoters()
     Web3Utils.castAllVotes()
+    Web3Utils.logoutAllVoters()
     CommonUtils.stopTimer()
     print(f"Execution time : {CommonUtils.getExecutionTime()}")
 
