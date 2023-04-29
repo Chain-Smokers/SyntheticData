@@ -67,18 +67,19 @@ class Web3Utils:
     @staticmethod
     def castAllVotes():
         voters = ElectoralContract.getVotersDetailed()
-        voteTimestamp = int(os.environ["VOTING_START_TIME"]) + random.randint(
-            0,
-            int(os.environ["VOTING_WINDOW_IN_HOURS"])
-            * MINUTES_IN_HOUR
-            * SECONDS_IN_MINUTE,
-        )
         for voterIndex in range(len(voters)):
             if (
                 not voters[voterIndex][1]  # Check if previously voted
                 and voters[voterIndex][2]  # Check if logged in
                 and (random.random() < float(os.environ["VOTE_CAST_PROBABILITY"]))
             ):
+                voteTimestamp = int(os.environ["VOTING_START_TIME"]) + random.randint(
+                    0,
+                    int(os.environ["VOTING_WINDOW_IN_HOURS"])
+                    * MINUTES_IN_HOUR
+                    * SECONDS_IN_MINUTE,
+                )
+                print(voteTimestamp)
                 txReceipt = ElectoralContract.vote(voterIndex, 0, voteTimestamp)
                 CommonUtils.consoleLog(
                     f"Vote cast : {voterIndex}",
