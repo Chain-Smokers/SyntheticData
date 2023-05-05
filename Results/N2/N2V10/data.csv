@@ -1,0 +1,11 @@
+name,has_cast_vote,is_logged_in,password,node_address,timestamp,Date/Time,HourOfDay
+Francisca Brown,False,False,password,,,,
+Francisca Mitchell,False,False,password,,,,
+Hollie Meza,True,False,password,Norm2,1681997397.0,2023-04-20 13:29:57,13.0
+Rodney Howell,True,False,password,Norm1,1681997397.0,2023-04-20 13:29:57,13.0
+Emory Murray,False,False,password,,,,
+Sarah Sharp,True,False,password,Norm2,1681997397.0,2023-04-20 13:29:57,13.0
+Beatriz Hendricks,True,False,password,Norm1,1681997397.0,2023-04-20 13:29:57,13.0
+Lesley Howell,True,False,password,Norm1,1681997397.0,2023-04-20 13:29:57,13.0
+Chelsea Kerr,False,False,password,,,,
+Collin Zamora,True,False,password,Norm1,1681997397.0,2023-04-20 13:29:57,13.0

@@ -1,0 +1,122 @@
+Candidate added : Tony Stark
+Voter added : 0
+Voter added : 1
+Voter added : 2
+Voter added : 3
+Voter added : 4
+Voter added : 5
+Voter added : 6
+Voter added : 7
+Voter added : 8
+Voter added : 9
+Voter added : 10
+Voter added : 11
+Voter added : 12
+Voter added : 13
+Voter added : 14
+Voter added : 15
+Voter added : 16
+Voter added : 17
+Voter added : 18
+Voter added : 19
+Voter added : 20
+Voter added : 21
+Voter added : 22
+Voter added : 23
+Voter added : 24
+Voter added : 25
+Voter added : 26
+Voter added : 27
+Voter added : 28
+Voter added : 29
+Voter added : 30
+Voter added : 31
+Voter added : 32
+Voter added : 33
+Voter added : 34
+Voter added : 35
+Voter added : 36
+Voter added : 37
+Voter added : 38
+Voter added : 39
+Voter logged in : 0
+Voter logged in : 1
+Voter logged in : 2
+Voter logged in : 3
+Voter logged in : 4
+Voter logged in : 5
+Voter logged in : 6
+Voter logged in : 7
+Voter logged in : 8
+Voter logged in : 9
+Voter logged in : 10
+Voter logged in : 11
+Voter logged in : 12
+Voter logged in : 13
+Voter logged in : 14
+Voter logged in : 15
+Voter logged in : 16
+Voter logged in : 17
+Voter logged in : 18
+Voter logged in : 19
+Voter logged in : 20
+Voter logged in : 21
+Voter logged in : 22
+Voter logged in : 23
+Voter logged in : 24
+Voter logged in : 25
+Voter logged in : 26
+Voter logged in : 27
+Voter logged in : 28
+Voter logged in : 29
+Voter logged in : 30
+Voter logged in : 31
+Voter logged in : 32
+Voter logged in : 33
+Voter logged in : 34
+Voter logged in : 35
+Voter logged in : 36
+Voter logged in : 37
+Voter logged in : 38
+Voter logged in : 39
+Vote cast : 0
+Vote cast : 1
+Vote cast : 2
+Vote cast : 3
+Vote cast : 4
+Vote cast : 6
+Vote cast : 7
+Vote cast : 8
+Vote cast : 9
+Vote cast : 11
+Vote cast : 12
+Vote cast : 13
+Vote cast : 16
+Vote cast : 17
+Vote cast : 18
+Vote cast : 19
+Vote cast : 21
+Vote cast : 22
+Vote cast : 23
+Vote cast : 24
+Vote cast : 25
+Vote cast : 26
+Vote cast : 27
+Vote cast : 29
+Vote cast : 30
+Vote cast : 31
+Vote cast : 32
+Vote cast : 33
+Vote cast : 34
+Vote cast : 35
+Vote cast : 36
+Vote cast : 38
+Vote cast : 39
+Voter logged out : 5
+Voter logged out : 10
+Voter logged out : 14
+Voter logged out : 15
+Voter logged out : 20
+Voter logged out : 28
+Voter logged out : 37
+Execution time : 8.884225845336914
