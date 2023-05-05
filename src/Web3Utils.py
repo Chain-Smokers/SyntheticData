@@ -79,7 +79,6 @@ class Web3Utils:
                     * MINUTES_IN_HOUR
                     * SECONDS_IN_MINUTE,
                 )
-                print(voteTimestamp)
                 txReceipt = ElectoralContract.vote(voterIndex, 0, voteTimestamp)
                 CommonUtils.consoleLog(
                     f"Vote cast : {voterIndex}",
